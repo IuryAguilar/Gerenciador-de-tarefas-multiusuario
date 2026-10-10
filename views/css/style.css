@@ -1,0 +1,107 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif 
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #333;
+}
+.container{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    width: 75%;
+    height: 75%;
+    border-radius: 50px;
+    .containerForm{
+        padding: 10px;
+        border-radius: 50px 0 0 50px;
+        width: 33%;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        form, #perfilInfo{
+            h1{
+                margin: 30px 0 20px 0;
+            }
+            input{
+                margin: 20px 10px 30px 10px;
+                padding: 5px;
+                border: none;
+                width: 300px;
+                font-size: large;
+                border-bottom: 2px solid black;
+                transition: all 0.5s ease;
+            }
+            input:focus{
+                outline: none;
+
+            }
+            button{
+                font-size: 15px;
+                padding: 5px;
+                width: 200px;
+                height: 40px;
+                border-radius: 50px;
+                border: none;
+                cursor: pointer;
+                transition: all 0.5s ease;
+            }
+            button:hover{
+                color: white;
+                background-color: black;
+                transform: scale(1.1);
+            }
+            p{
+                margin-bottom: 10px;
+                cursor: default;
+            }
+        }
+        .links{
+            border-radius: 0 0 0 50px;
+            span{
+                font-size: 17px;
+            }
+            a{
+                font-size: 17px;
+                color: gray;
+                transition: all 0.5s ease;
+            }
+            a:hover{
+                color: black;
+                transform: scale(1.05);
+            }
+        }
+    }   
+    .containerChild{
+        padding: 10px;
+        width: 66%;
+        border-radius: 0 50px 50px 0;
+        background-image: linear-gradient(90deg, red, orange);
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .textos{
+            h1{
+                margin-bottom: 10px;
+                font-size: 50px;
+            }
+            p{
+                font-size: 25px;
+                width: 500px;
+            }
+        }
+    }
+    #perfilInfo{
+        text-align: start;
+        span{
+            font-weight: bold;
+        }
+    }
+}
