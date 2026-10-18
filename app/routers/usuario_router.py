@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from app.controller.auth_controller import AuthController
 from app.schemas.usuario_schemas import Perfil
-from app.dependencies.dependencies import obter_auth_controller
+from app.dependencies.usuario_dependencies import obter_auth_controller
 from app.dependencies.auth_dependencies import verificar_autentificacao
 
 router = APIRouter()

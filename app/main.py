@@ -8,6 +8,7 @@ from app.exceptions import (
     )
 from app.routers.auth_router import router as auth_router
 from app.routers.usuario_router import router as usuario_router
+from app.routers.tarefa_router import router as tarefa_router
 
 app = FastAPI()
 
@@ -20,7 +21,7 @@ app.add_middleware(
 
 app.include_router(auth_router)
 app.include_router(usuario_router)
-
+app.include_router(tarefa_router)
 
 @app.exception_handler(UsuarioJaEncontradoException)
 def usuario_ja_encontrado_handler(request, exc):
