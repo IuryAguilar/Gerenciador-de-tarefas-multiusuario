@@ -6,3 +6,6 @@ class EmailOuSenhaInvalidoException(Exception):
 
 class UsuarioNaoEncontradoException(Exception):
     pass
+
+class TarefaNaoEncontradaException(Exception):
+    pass

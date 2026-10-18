@@ -34,3 +34,60 @@ class TarefaModel:
                 resultado_tarefas = cursor.fetchall()
 
                 return resultado_tarefas
+
+    def atualizar_tarefa(
+            self,
+            tarefa_id,
+            titulo,
+            descricao,
+            status,
+            prioridade,
+            prazo,
+            usuario_id
+    ):
+        with conectar_banco() as conexao:
+            with conexao.cursor() as cursor:
+                cursor.execute(
+                    '''
+                    UPDATE tarefas 
+                    SET titulo = %s, descricao = %s, status = %s, prioridade = %s, prazo = %s
+                    WHERE id = %s
+                    AND usuario_id = %s
+                    ''',
+                    (titulo, descricao, status, prioridade, prazo, tarefa_id, usuario_id)
+                )
+
+            conexao.commit()
+
+            return cursor.rowcount
+
+    def identificar_tarefa_por_id(self, tarefa_id, usuario_id):
+        with conectar_banco() as conexao:
+            with conexao.cursor() as cursor:
+                cursor.execute(
+                    '''
+                    SELECT id
+                    FROM tarefas
+                    WHERE id = %s AND usuario_id = %s
+                    ''',
+                    (tarefa_id, usuario_id)
+                )
+
+                tarefa_encontrada = cursor.fetchone()
+
+            return tarefa_encontrada
+
+    def excluir_tarefa(self, tarefa_id, usuario_id):
+        with conectar_banco() as conexao:
+            with conexao.cursor() as cursor:
+                cursor.execute(
+                    '''
+                    DELETE FROM tarefas
+                    WHERE id = %s AND usuario_id = %s
+                    ''',
+                    (tarefa_id, usuario_id)
+                )
+
+            conexao.commit()
+
+            return cursor.rowcount

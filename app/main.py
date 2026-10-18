@@ -4,7 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.exceptions import (
     UsuarioNaoEncontradoException,
     UsuarioJaEncontradoException,
-    EmailOuSenhaInvalidoException
+    EmailOuSenhaInvalidoException,
+    TarefaNaoEncontradaException
     )
 from app.routers.auth_router import router as auth_router
 from app.routers.usuario_router import router as usuario_router
@@ -47,6 +48,15 @@ def email_ou_senha_invalido_handler(request, exc):
     return JSONResponse(
         status_code = 401,
         content ={
+            "detail": str(exc)
+        }
+    )
+
+@app.exception_handler(TarefaNaoEncontradaException)
+def tarefa_nao_encontrada_handler(request, exc):
+    return JSONResponse(
+        status_code = 404,
+        content = {
             "detail": str(exc)
         }
     )

@@ -35,3 +35,39 @@ def criar_tarefa(
     )
 
     return resultado_criacao
+
+@router.put("/atualizar_tarefa/{tarefa_id}")
+def atualizar_tarefa(
+    tarefa_id: int,
+    tarefa: TarefaCriacao,
+    usuario: dict = Depends(verificar_autentificacao),
+    tarefa_controller: TarefaController = Depends(obter_tarefa_controller)
+):
+    usuario_id = usuario["sub"]
+
+    resultado_atualizacao = tarefa_controller.atualizar_tarefa(
+        tarefa_id,
+        tarefa.titulo,
+        tarefa.descricao,
+        tarefa.status,
+        tarefa.prioridade,
+        tarefa.prazo,
+        usuario_id
+    )
+
+    return resultado_atualizacao
+
+@router.delete("/excluir_tarefa/{tarefa_id}")
+def excluir_tarefa(
+    tarefa_id: int,
+    usuario: dict = Depends(verificar_autentificacao),
+    tarefa_controller: TarefaController = Depends(obter_tarefa_controller)
+):
+    usuario_id = usuario["sub"]
+
+    resultado_exclusao = tarefa_controller.excluir_tarefa(
+        tarefa_id,
+        usuario_id
+    )
+
+    return resultado_exclusao
