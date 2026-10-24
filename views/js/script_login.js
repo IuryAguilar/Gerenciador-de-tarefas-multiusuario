@@ -34,7 +34,7 @@ elements.login_form.addEventListener("submit", async (event) => {
 
     if (dados.sucesso) {
         localStorage.setItem("token", dados.token);
-        window.location.href = "perfil.html";
+        window.location.href = "tarefas.html";
     } else {
         elements.error_msg.textContent = dados.detail;
     };

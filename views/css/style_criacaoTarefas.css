@@ -1,0 +1,204 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif 
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #333;
+}
+.container{
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    width: 90%;
+    height: 90%;
+    border-radius: 50px;
+    text-align: center;
+    .criarTarefa-container{
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        width: 33%;
+        align-items: center;
+        #criarTarefaForm{
+            margin-top: 30px;
+            text-align: start;
+            .formDiv{
+                display: flex;
+                flex-direction: column;
+                text-align: start;
+                margin-bottom: 20px;
+                min-width: 300px;
+            }
+            label{
+                font-size: 22px;
+                text-align: start;
+            }
+            input, select{
+                cursor: pointer;
+                padding: 5px;
+                border: none;
+                width: 300px;
+                font-size: large;
+                border-bottom: 2px solid black;
+                transition: all 0.5s ease;
+            }
+            input, select:focus{
+                outline: none;
+            }
+            textarea{
+                resize: none;
+                width: 350px;
+                height: 50px;
+            }
+            button{
+                font-size: 15px;
+                padding: 5px;
+                width: 200px;
+                height: 40px;
+                border-radius: 50px;
+                border: none;
+                cursor: pointer;
+                margin-left: 50px;
+                transition: all 0.5s ease;
+            }
+            button:hover{
+                color: white;
+                background-color: black;
+                transform: scale(1.1);
+            }
+            p{
+                margin-bottom: 10px;
+                cursor: default;
+            }
+        }
+    }
+    .listarTarefa-container{
+        display: flex;
+        flex-direction: column;
+        width: 66%;
+        border-radius: 0 50px 50px 0;
+        color: white;
+        background-image: linear-gradient(90deg, red, orange);
+        padding: 20px;
+        ul{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            color: black;
+            list-style: none;
+            border-radius: 50px;
+            overflow-y: auto;
+            li{
+                display: flex;
+                flex-direction: column;
+                max-width: 200px;
+                background-color: white;
+                margin: 10px;
+                border-radius: 50px;
+                padding: 20px;
+                cursor: default;
+                .infoEscondida{
+                    display: none;
+                    border: 1px solid black;
+                    border-radius: 50px;
+                    padding: 3px;
+                }
+                button{
+                    font-size: 15px;
+                    padding: 5px;
+                    width: 200px;
+                    height: 40px;
+                    border-radius: 50px;
+                    border: none;
+                    cursor: pointer;
+                    margin: 5px;
+                    transition: all 0.5s ease;
+                }
+                button:hover{
+                    color: white;
+                    background-color: black;
+                    transform: scale(1.1);
+                }
+            }
+            li:hover{
+                .infoEscondida{
+                    display: block;
+                }
+            }
+        }
+    }
+}
+.editarTarefa-container{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    h1{
+        color: white;
+    }
+    #editarTarefaForm{
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        border-radius: 50px;
+        .formDiv{
+            display: flex;
+            flex-direction: column;
+            text-align: start;
+            margin-bottom: 20px;
+            min-width: 300px;
+        }
+        label{
+            font-size: 22px;
+            text-align: start;
+        }
+        input, select{
+            cursor: pointer;
+            padding: 5px;
+            border: none;
+            width: 300px;
+            font-size: large;
+            border-bottom: 2px solid black;
+            transition: all 0.5s ease;
+        }
+        input, select:focus{
+            outline: none;
+        }
+        textarea{
+            resize: none;
+            width: 350px;
+            height: 50px;
+        }
+        button{
+            font-size: 15px;
+            padding: 5px;
+            width: 200px;
+            height: 40px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            margin-left: 50px;
+            margin-bottom: 10px;
+            transition: all 0.5s ease;
+        }
+        button:hover{
+            color: white;
+            background-color: black;
+            transform: scale(1.1);
+        }
+        p{
+            margin-bottom: 10px;
+            cursor: default;
+        }
+    }
+}

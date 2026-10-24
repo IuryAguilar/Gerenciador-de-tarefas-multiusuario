@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criação de tarefas - GTM</title>
+    <link rel="stylesheet" href="css/style_criacaoTarefas.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="criarTarefa-container">
+            <h1>Crie uma nova tarefa</h1>
+            <form id="criarTarefaForm">
+                <div class="formDiv">
+                    <label>Título da tarefa:</label>
+                    <input type="text" name="titulo" id="tituloI" placeholder="Título">
+                </div>
+                
+                <div class="formDiv">
+                    <label>Descrição:</label>
+                    <textarea name="descricao" id="descricaoTxtArea"></textarea>
+                </div>
+                
+                <div class="formDiv">
+                    <label>Status:</label>
+                    <select name="status" id="statusSlct">
+                        <option value="pendente">Pendente</option>
+                        <option value="em_andamento">Em andamento</option>
+                        <option value="concluida">Concluída</option>
+                    </select>
+                </div>
+                <div class="formDiv">
+                    <label>Nível de prioridade:</label>
+                    <select name="prioridade" id="prioridadeSlct">
+                        <option value="baixa">Baixa</option>
+                        <option value="media" selected>Média</option>
+                        <option value="alta">Alta</option>
+                    </select>
+                </div>
+                
+                <div class="formDiv">
+                    <label>Data de vencimento:</label>
+                    <input type="date" name="prazo" id="prazoI" placeholder="Escolha uma data">
+                </div>
+                
+                <p id="errorCT"></p>
+                <button type="submit" id="criarTarefaBtn">Criar tarefa</button>
+            </form>
+        </div>
+
+        <div class="listarTarefa-container">
+            <h1>Minhas tarefas</h1>
+            <ul id="tarefasListadas"></ul>
+            <p id="errorLT"></p>
+        </div>
+    </div>
+
+    <div class="editarTarefa-container">
+            <h1>Altere sua tarefa</h1>
+            <form id="editarTarefaForm">
+                <input type="hidden" name="id" id="tarefaId-edit">
+
+                <div class="formDiv">
+                    <label>Título da tarefa:</label>
+                    <input type="text" name="titulo" id="tituloI-edit" placeholder="Título">
+                </div>
+            
+                <div class="formDiv">
+                    <label>Descrição:</label>
+                    <textarea name="descricao" id="descricaoTxtArea-edit"></textarea>
+                </div>
+            
+                <div class="formDiv">
+                    <label>Status:</label>
+                    <select name="status" id="statusSlct-edit">
+                        <option value="pendente">Pendente</option>
+                        <option value="em_andamento">Em andamento</option>
+                        <option value="concluida">Concluída</option>
+                    </select>
+                </div>
+                <div class="formDiv">
+                    <label>Nível de prioridade:</label>
+                    <select name="prioridade" id="prioridadeSlct-edit">
+                        <option value="baixa">Baixa</option>
+                        <option value="media" selected>Média</option>
+                        <option value="alta">Alta</option>
+                    </select>
+                </div>
+            
+                <div class="formDiv">
+                    <label>Data de vencimento:</label>
+                    <input type="date" name="prazo" id="prazoI-edit" placeholder="Escolha uma data">
+                </div>
+            
+                <p id="errorET"></p>
+                <button type="submit" id="salvarAlteracaoBtn-edit">Salvar alterações</button>
+                <button type="button" id="cancelarAlteracaoBtn-edit">Cancelar</button>
+            </form>
+        </div>
+
+    <script src="js/script_tarefas.js"></script>
+</body>
+</html>
