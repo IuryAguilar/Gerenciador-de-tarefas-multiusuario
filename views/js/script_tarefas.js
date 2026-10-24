@@ -23,7 +23,7 @@ const editTaskElements = {
     prioridade_select: document.getElementById('prioridadeSlct-edit'),
     status_select: document.getElementById('statusSlct-edit'),
     prazo_input: document.getElementById('prazoI-edit'),
-    error_msg: document.getElementById('errorET-edit'),
+    error_msg: document.getElementById('errorET'),
     salvarAlteracao_button: document.getElementById('salvarAlteracaoBtn-edit'),
     cancelarAlteracao_button: document.getElementById('cancelarAlteracaoBtn-edit')
 };
@@ -72,7 +72,10 @@ createTaskElements.criarTarefa_form.addEventListener("submit", async (event) => 
         const dados = await resposta.json();
 
         if (!resposta.ok){
-            createTaskElements.error_msg.textContent = "Erro ao criar a tarefa.";
+            tratarErroAutenticacao(resposta);
+            if (resposta.status !== 401) {
+                createTaskElements.error_msg.textContent = "Erro ao criar a tarefa.";
+            }
         } else {
             createTaskElements.error_msg.textContent = "Tarefa criada com sucesso.";
             createTaskElements.criarTarefa_form.reset();
@@ -103,7 +106,10 @@ async function listar_tarefas(){
         }
 
         if (!resposta.ok){
-            listTaskElements.error_msg.textContent = "Erro ao listar as tarefas.";
+            tratarErroAutenticacao(resposta);
+            if (resposta.status !== 401){
+                listTaskElements.error_msg.textContent = "Erro ao listar as tarefas.";
+            };
         } else {
             listTaskElements.listaTarefas.textContent = "";
             for (let dado of dados) {
@@ -142,6 +148,24 @@ async function listar_tarefas(){
                 };
                 item.appendChild(prazo);
 
+                const editarTarefaBtn = document.createElement("button");
+                editarTarefaBtn.textContent = "Editar";
+                editarTarefaBtn.dataset.tarefaId = dado[0];
+                item.appendChild(editarTarefaBtn);
+
+                editarTarefaBtn.addEventListener("click", async () => {
+                    const tarefaId = editarTarefaBtn.dataset.tarefaId;
+
+                    editTaskElements.editarTarefa_container.hidden = false;
+
+                    editTaskElements.id_input.value = tarefaId;
+                    editTaskElements.titulo_input.value = dado[1];
+                    editTaskElements.descricao_input.value = dado[2] || "";
+                    editTaskElements.status_select.value = dado[3];
+                    editTaskElements.prioridade_select.value = dado[4];
+                    editTaskElements.prazo_input.value = dado[5] || "";
+                });
+
                 const deletarTarefaBtn = document.createElement("button");
                 deletarTarefaBtn.textContent = "Excluir";
                 deletarTarefaBtn.dataset.tarefaId = dado[0];
@@ -160,31 +184,16 @@ async function listar_tarefas(){
                         })
 
                         if (!resposta.ok) {
-                            listTaskElements.error_msg.textContent = "Erro ao excluir a tarefa.";
+                            tratarErroAutenticacao(resposta);
+                            if (resposta.status !== 401){
+                                listTaskElements.error_msg.textContent = "Erro ao excluir a tarefa.";
+                            }
                         } else {
-                            listar_tarefas();
+                            await listar_tarefas();
                         }
                     } catch (erro) {
                         console.error("Ops, algo deu errado:", erro.message);
                     }
-                });
-
-                const editarTarefaBtn = document.createElement("button");
-                editarTarefaBtn.textContent = "Editar";
-                editarTarefaBtn.dataset.tarefaId = dado[0];
-                item.appendChild(editarTarefaBtn);
-
-                editarTarefaBtn.addEventListener("click", async () => {
-                    const tarefaId = editarTarefaBtn.dataset.tarefaId;
-
-                    editTaskElements.editarTarefa_container.style.display = "flex";
-
-                    editTaskElements.id_input.value = tarefaId;
-                    editTaskElements.titulo_input.value = dado[1];
-                    editTaskElements.descricao_input.value = dado[2] || "";
-                    editTaskElements.status_select.value = dado[3];
-                    editTaskElements.prioridade_select.value = dado[4];
-                    editTaskElements.prazo_input.value = dado[5] || "";
                 });
 
                 listTaskElements.listaTarefas.appendChild(item);
@@ -198,7 +207,7 @@ async function listar_tarefas(){
 listar_tarefas();
 
 editTaskElements.cancelarAlteracao_button.addEventListener("click", () => {
-    editTaskElements.editarTarefa_container.style.display = "none";
+    editTaskElements.editarTarefa_container.hidden = true;
 
     editTaskElements.editarTarefa_form.reset();
 
@@ -235,9 +244,12 @@ editTaskElements.editarTarefa_form.addEventListener("submit", async (event) => {
         });
 
         if (!resposta.ok){
-            editTaskElements.error_msg.textContent = "Erro ao alterar tarefa.";
+            tratarErroAutenticacao(resposta);
+            if (resposta.status !== 401){
+                editTaskElements.error_msg.textContent = "Erro ao alterar tarefa.";
+            };
         } else {
-            editTaskElements.editarTarefa_container.style.display = "none"
+            editTaskElements.editarTarefa_container.hidden = true;
             editTaskElements.editarTarefa_form.reset();
             await listar_tarefas();
             return;
@@ -246,3 +258,10 @@ editTaskElements.editarTarefa_form.addEventListener("submit", async (event) => {
         console.error("Ops, algo deu errado:", erro.message);
     }
 });
+
+function tratarErroAutenticacao(resposta){
+    if (resposta.status === 401){
+        localStorage.removeItem("token");
+        window.location.href = "login.html";
+    }
+};
