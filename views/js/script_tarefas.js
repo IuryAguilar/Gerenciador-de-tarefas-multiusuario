@@ -28,7 +28,21 @@ const editTaskElements = {
     cancelarAlteracao_button: document.getElementById('cancelarAlteracaoBtn-edit')
 };
 
+const perfilElements = {
+    nome_perfil: document.getElementById('perfilNome'),
+    email_perfil: document.getElementById('perfilEmail'),
+    logout_button: document.getElementById('logoutBtn')
+};
+
 const token = localStorage.getItem("token");
+
+if (!token) {
+    window.location.href = "login.html";
+}
+
+//----------------------------------------------------//
+//-----------------Criação de Tarefas-----------------//
+//----------------------------------------------------//
 
 createTaskElements.criarTarefa_form.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -86,6 +100,10 @@ createTaskElements.criarTarefa_form.addEventListener("submit", async (event) => 
         console.error("Ops, algo deu errado:", erro.message);
     };
 });
+
+//-----------------------------------------------------//
+//-----------------Listagem de Tarefas-----------------//
+//-----------------------------------------------------//
 
 async function listar_tarefas(){
     try{
@@ -206,6 +224,10 @@ async function listar_tarefas(){
 };
 listar_tarefas();
 
+//---------------------------------------------------//
+//-----------------Edição de Tarefas-----------------//
+//---------------------------------------------------//
+
 editTaskElements.cancelarAlteracao_button.addEventListener("click", () => {
     editTaskElements.editarTarefa_container.hidden = true;
 
@@ -265,3 +287,45 @@ function tratarErroAutenticacao(resposta){
         window.location.href = "login.html";
     }
 };
+
+//--------------------------------------------------------//
+//-----------------Carregamento de Perfil-----------------//
+//--------------------------------------------------------//
+
+async function carregar_perfil() {
+    try{
+        const resposta = await fetch("http://127.0.0.1:8000/perfil", {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${token}`
+            }
+        });
+
+        const dados = await resposta.json();
+
+        if (!resposta.ok){
+            tratarErroAutenticacao(resposta);
+            if (resposta.status !== 401){
+                perfilElements.nome_perfil.textContent = "Erro ao carregar o perfil.";
+            };
+        } else {
+            perfilElements.nome_perfil.textContent = dados.nome;
+            perfilElements.email_perfil.textContent = dados.email;
+            return;
+        };
+    } catch(erro) {
+        console.error("Ops, algo deu errado:", erro.message);
+    };
+};
+
+carregar_perfil();
+
+//----------------------------------------//
+//-----------------Logout-----------------//
+//----------------------------------------//
+
+perfilElements.logout_button.addEventListener("click", () => {
+    localStorage.removeItem("token");
+    window.location.href = "login.html";
+});

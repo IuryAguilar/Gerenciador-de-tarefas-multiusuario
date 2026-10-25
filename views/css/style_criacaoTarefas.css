@@ -5,19 +5,71 @@
 }
 body{
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-end;
     align-items: center;
     height: 100vh;
     background-color: #333;
+}
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    .perfil-container{
+        display: flex;
+        align-items: center;
+        background-color: white;
+        padding: 10px;
+        margin-right: 50px;
+        border-radius: 50px;
+        border: 4px solid transparent;
+        background: 
+            linear-gradient(white, white) padding-box,
+            linear-gradient(90deg, red, orange) border-box;
+        .perfilSpans{
+            display: flex;
+            flex-direction: column;
+            margin-right: 10px;
+            cursor: default;
+            #perfilNome{
+                font-size: 20px;
+                font-weight: bold;
+            }
+            #perfilEmail{
+                font-size: 15px;
+            }
+        }
+        button{
+            font-size: 15px;
+            padding: 5px;
+            width: 70px;
+            height: 40px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.5s ease;
+        }
+        button:hover{
+            color: white;
+            background-color: red;
+            transform: scale(1.05);
+        }
+    }
 }
 .container{
     display: flex;
     flex-direction: row;
     background-color: white;
     width: 90%;
-    height: 90%;
+    height: 84%;
     border-radius: 50px;
     text-align: center;
+    margin-bottom: 30px;
     .criarTarefa-container{
         padding: 10px;
         display: flex;
